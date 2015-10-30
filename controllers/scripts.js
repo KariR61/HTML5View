@@ -21,10 +21,35 @@ $(document).ready(function(){
     $.ajax(setting).done(function(data){
         
         console.log(data);
+        
+        //Get all keys (attribute names) from json object
+        console.log(Object.keys(data.rows[0]));
+        
+        
+        // Check that there are elements in array
+        if(data.rows.length > 0) {
+            
+           //Creates header also dynamically
+            var headers = Object.keys(data.rows[0]);
+            
+            var row = $("<tr></tr>");
+            for(var i = 1; i < headers.length; i++){
+                //create header and add it to row
+                $("<th>" + headers[i] + "</th>").appendTo(row);
+            }
+            //add row to thead element
+            $(row).appendTo("thead");
+        }
+        
+        //Create table content dynamically
         for(i=0; i < data.rows.length; i++){
             
             var html = "<tr>" +
-                        "<td>" + data.rows[i].name + "</td>" + "<td>" + data.rows[i].address + "</td>" +"<td>" + data.rows[i].age + "</td>" + "</tr>";
+                        "<td>" + data.rows[i].name + "</td>" +
+                        "<td>" + data.rows[i].address + "</td>" +
+                        "<td>" + data.rows[i].age + "</td>" +
+                        "<td>" + data.rows[i].email + "</td>" +
+                        "</tr>";
             
         
             $(html).appendTo("tbody");
