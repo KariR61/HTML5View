@@ -13,9 +13,8 @@ $(document).ready(function(){
     var setting = {
      
         method:"GET",
-        url:"http://localhost:28017/oma/person/",
-        dataType:"jsonp",
-        jsonp:"jsonp"
+        url:"http://localhost:3000/persons",
+        dataType:"json",
     }
     
     $.ajax(setting).done(function(data){
@@ -23,14 +22,14 @@ $(document).ready(function(){
         console.log(data);
         
         //Get all keys (attribute names) from json object
-        console.log(Object.keys(data.rows[0]));
+        console.log(Object.keys(data[0]));
         
         
         // Check that there are elements in array
-        if(data.rows.length > 0) {
+        if(data.length > 0) {
             
            //Creates header also dynamically
-            var headers = Object.keys(data.rows[0]);
+            var headers = Object.keys(data[0]);
             
             var row = $("<tr></tr>");
             for(var i = 1; i < headers.length; i++){
@@ -42,13 +41,13 @@ $(document).ready(function(){
         }
         
         //Create table content dynamically
-        for(i=0; i < data.rows.length; i++){
+        for(i=0; i < data.length; i++){
             
             var html = "<tr>" +
-                        "<td>" + data.rows[i].name + "</td>" +
-                        "<td>" + data.rows[i].address + "</td>" +
-                        "<td>" + data.rows[i].age + "</td>" +
-                        "<td>" + data.rows[i].email + "</td>" +
+                        "<td>" + data[i].name + "</td>" +
+                        "<td>" + data[i].address + "</td>" +
+                        "<td>" + data[i].age + "</td>" +
+                        "<td>" + data[i].email + "</td>" +
                         "</tr>";
             
         
