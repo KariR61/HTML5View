@@ -27,7 +27,10 @@ exports.saveNewPerson = function(req,res){
     //Sav it to database
     personTemp.save(function(err,ok){
                     
-            res.send("Database action done");
+            //res.send("Database action done");
+       
+        //Make a redirect to root context
+        res.redirect('/');
     
      });
 }
@@ -66,4 +69,38 @@ exports.updatePerson = function(req,res){
         res.send("Updated");
     });
 }
+
+/*
+*This function searches database by name or begin letters of name
+*/
+exports.findPersonsByName = function(req,res){
+    
+    var name = req.params.nimi.split("=")[1];
+    console.log("name:" + name);
+    
+    db.Person.find({name:{'$regex':'^' + name,'$options':'i'}},function(err,data){
+    
+            if(err){
+                    
+                   res.send('error');
+            }
+            else{
+                console.log(data);  
+                res.send(data);
+            }
+    });
+
+}
+
+
+
+                   
+            
+
+
+
+
+
+
+
 
