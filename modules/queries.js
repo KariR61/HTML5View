@@ -29,10 +29,16 @@ exports.saveNewPerson = function(req,res){
                     
             //res.send("Database action done");
        
+        db.Friends.update({username:req.body.user},
+                          {$push:{'friends':personTemp._id}},
+                         function(err,model){
+            
         //Make a redirect to root context
-        res.redirect('/');
-    
-     });
+        //res.redirect('/');
+        res.send("Addded stuff");
+    });
+        
+    });
 }
 
 //this function deletes one person from our collections
@@ -45,6 +51,9 @@ exports.deletePerson = function(req,res){
     console.log(id);
     db.Person.remove({_id:id},function(err){
     
+        
+    console.log("delete 1 button pressed");
+        
      if(err){
          res.send(err.message);
      }
@@ -52,7 +61,9 @@ exports.deletePerson = function(req,res){
         res.send("Delete ok");
      }
      
- });   
+ });
+    
+//console.log("delete 1 button pressed");   
 }
 
 //this function updates one person info
@@ -138,8 +149,8 @@ exports.getFriendsByUsername = function(req,res){
     db.Friends.find({username:usern}).populate('friends').exec(function(err,data){
     
         console.log(err);
-        console.log(data);
-        res.send(data.friends);
+        console.log(data[0].friends);
+        res.send(data[0].friends);
         
     });
 

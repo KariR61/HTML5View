@@ -28,7 +28,7 @@ $(document).ready(function(){
                         "<td><input type='button' id=" + data[i]._id + " value='Modify'/></td>" +
                         "</tr>";
             
-        
+            
             $(html).appendTo("tbody");
         }
         });
@@ -149,7 +149,8 @@ function buildModifyUI(person_data){
         }).done(function(){location.reload(true)});
         
     });
-    
+ 
+    console.log("delete button pressed");
 }
 
 /*

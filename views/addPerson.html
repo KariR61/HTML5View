@@ -1,21 +1,44 @@
 <!doctype html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <link href="/css/styles.css" type="text/css" rel="stylesheet">
-        <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-        <link href="/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet">
+        <script src="../lib/jquery-2.1.4.min.js">
+        </script>
+        <script>
+            $(document).ready(function(){
+            
+                $("#sendBtn").click(function(){
+                   
+                    var data = {
+                    
+                        user:localStorage['username'],
+                        name:$("#name").val(),
+                        address:$("#address").val(),
+                        age:$("#age").val()
+                    }
+                    
+                    $.ajax({
+                        method:'POST',
+                        url:'http://localhost:3000/persons',
+                        data:data,
+                        //dataType:'json'
+                    }).done(function(data){
+                        window.location ="./persons.html";
+                    });
+                });
+            });
+        </script>
     </head>
-    <body>
+        <body>
         <h1>Add new contact info</h1>
-        <form method="post" enctype="application/json" action="/persons">
+        <form>
             
+            <input type="text" placeholder="Your full name" id="name" required/>
+            <input type="text" placeholder="Your full address" id="address" required/> 
+            <input type="number" placeholder="Your age" id="age" required/>
             
-            <input type="text" placeholder="Your full name" name="name" required/>
-            <input type="text" placeholder="Your full address" name="address" required/> 
-            <input type="number" placeholder="Your age" name="age" required/>
-            <input type="submit" value="Send"/>
+            <input id="sendBtn" type="button" value="Send"/>
         
+            
         </form>
     </body>
     
